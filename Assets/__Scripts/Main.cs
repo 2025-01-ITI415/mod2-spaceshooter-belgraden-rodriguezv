@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;   // Enables the loading & reloading of scenes
 
@@ -11,6 +12,7 @@ public class Main : MonoBehaviour
 
 
     [Header("Inscribed")]
+    public float clock = 0.0f;
     public bool spawnEnemies = true;
     public GameObject[] prefabEnemies;               // Array of Enemy prefabs
     public float enemySpawnPerSecond = 0.5f;  // # Enemies spawned/second
@@ -23,6 +25,25 @@ public class Main : MonoBehaviour
                                      eWeaponType.spread,  eWeaponType.shield };
     private BoundsCheck bndCheck;
 
+    //1000 = 1 second.
+    private float bosscheck = 60000;
+
+    private void Update()
+    {
+        clock += Mathf.Round(Time.time);
+
+        if (clock >= bosscheck)
+        {
+            Debug.Log(bosscheck);
+            bosscheck = clock + 60000;
+            if (!GameObject.FindWithTag("Boss"))
+            {
+                //Spawn Boss.
+                Debug.Log("Boss Spawn!");
+            }
+        }
+
+    }
     void Awake()
     {
         S = this;
