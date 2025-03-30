@@ -26,19 +26,19 @@ public class Main : MonoBehaviour
     private BoundsCheck bndCheck;
 
     //1000 = 1 second.
-    private float bosscheck = 60000;
+    private float bosscheck = 60;
 
     private void Update()
     {
-        clock += Mathf.Round(Time.time);
+        clock += Time.deltaTime;
 
         if (clock >= bosscheck)
         {
             Debug.Log(bosscheck);
-            bosscheck = clock + 60000;
+            bosscheck = clock + 60;
             if (!GameObject.FindWithTag("Boss"))
             {
-                //Spawn Boss.
+                GameObject boss = Instantiate<GameObject>(prefabEnemies[prefabEnemies.Length-1]);
                 Debug.Log("Boss Spawn!");
             }
         }
@@ -73,7 +73,7 @@ public class Main : MonoBehaviour
         }
 
         // Pick a random Enemy prefab to instantiate
-        int ndx = Random.Range(0, prefabEnemies.Length);                     // b
+        int ndx = Random.Range(0, prefabEnemies.Length-1);                     // b
         GameObject go = Instantiate<GameObject>(prefabEnemies[ndx]);     // c
 
         // Position the Enemy above the screen with a random x position
